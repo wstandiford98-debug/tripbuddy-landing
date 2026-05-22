@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip Buddy Dispatches - Real-Time Road Trip Intelligence</title>
+  <meta name="description" content="Navigate smarter with live updates on gas prices, road conditions, dining options, and a lot more. Shop food stores from home with Food Buddy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f5;
+      --white: #ffffff;
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --nav-bg: #ffffff;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    /* ── NAVBAR ─────────────────────────────────────────────────── */
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo img { height: 40px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      padding: 0.4rem 0.75rem; font-size: 0.875rem; font-weight: 500;
+      color: var(--text-muted); text-decoration: none; border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg); }
+    .nav-links a.active { color: var(--text); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-login {
+      padding: 0.4rem 1rem; font-size: 0.875rem; font-weight: 600;
+      color: var(--text); background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.15s;
+    }
+    .btn-login:hover { background: var(--bg); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 4px 0; border-radius: 2px; transition: all 0.2s; }
+    .mobile-menu { display: none; background: var(--white); border-top: 1px solid var(--border); padding: 1rem 1.5rem; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 0.6rem 0; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      min-height: 520px; display: flex; align-items: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1551259054-ecc962e65704?w=1600&q=80');
+      background-size: cover; background-position: center;
+      filter: brightness(0.35);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .hero-left {}
+    .hero-logo { width: 180px; height: auto; margin-bottom: 1.5rem; }
+    .hero-headline {
+      font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800;
+      color: #ffffff; line-height: 1.15; margin-bottom: 0.75rem;
+    }
+    .hero-sub { font-size: 1.1rem; font-weight: 600; color: var(--green); margin-bottom: 1rem; }
+    .hero-desc { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 1.75rem; max-width: 480px; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .btn-green {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--green); color: #fff; border: none;
+      padding: 0.7rem 1.4rem; font-size: 0.9rem; font-weight: 700;
+      border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.15s;
+    }
+    .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline-green {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: transparent; color: var(--green); border: 2px solid var(--green);
+      padding: 0.65rem 1.3rem; font-size: 0.9rem; font-weight: 700;
+      border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.15s;
+    }
+    .btn-outline-green:hover { background: rgba(34,197,94,0.1); transform: translateY(-1px); }
+    .hero-note {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 0.9rem 1.1rem;
+      font-size: 0.82rem; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 480px;
+    }
+    .hero-right { display: flex; justify-content: center; }
+    .hero-app-preview {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; padding: 2rem; text-align: center;
+      backdrop-filter: blur(10px); max-width: 320px; width: 100%;
+    }
+    .hero-app-preview .preview-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .hero-app-preview h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .hero-app-preview p { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 1.25rem; }
+
+    /* ── PUBLICATIONS ───────────────────────────────────────────── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 2.5rem; }
+    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+    .section-header p { font-size: 1rem; color: var(--text-muted); }
+    .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+    .pub-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      box-shadow: var(--shadow); transition: all 0.2s;
+    }
+    .pub-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: var(--green); }
+    .pub-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .pub-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .pub-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── QR SECTION ─────────────────────────────────────────────── */
+    .qr-section {
+      background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .qr-inner {
+      max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .qr-left h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: var(--text); margin-bottom: 0.75rem; }
+    .qr-left p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .qr-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn-gray {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--white); color: var(--text); border: 1px solid var(--border);
+      padding: 0.65rem 1.25rem; font-size: 0.875rem; font-weight: 600;
+      border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.15s;
+    }
+    .btn-gray:hover { background: var(--bg); box-shadow: var(--shadow); }
+    .qr-right { display: flex; justify-content: center; }
+    .qr-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem 2rem; text-align: center;
+      box-shadow: var(--shadow-lg); max-width: 280px; width: 100%;
+    }
+    .qr-card-title { font-size: 0.875rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .qr-card-sub { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .qr-code-img { width: 160px; height: 160px; margin: 0 auto 1rem; display: block; }
+    .qr-domain {
+      display: inline-block; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-muted);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--white); border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem 1.5rem;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .footer-brand-icon { width: 32px; height: 32px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .footer-brand-name { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+    .footer-tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--green); }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; text-decoration: none; transition: all 0.15s;
+    }
+    .social-link:hover { background: var(--green-light); border-color: var(--green); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.25rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── SCROLL TO TOP ──────────────────────────────────────────── */
+    .scroll-top {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px; background: var(--green); color: #fff;
+      border: none; border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+      box-shadow: var(--shadow-md); transition: all 0.2s; opacity: 0; pointer-events: none;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scroll-top.visible { opacity: 1; pointer-events: auto; }
+    .scroll-top:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .qr-inner { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn-green, .btn-outline-green { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="tripbuddy-logo.png" alt="Trip Buddy Logo" />
+      </a>
+      <div class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="#">Buddy Suite</a>
+        <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy</a>
+        <a href="#">Get Started</a>
+        <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Grocery Command</a>
+        <a href="https://symphonious-platypus-081513.netlify.app/news.html" target="_blank">Recipes</a>
+        <a href="#">Blog</a>
+        <a href="#">Store</a>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="btn-login">Login</a>
+        <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="/">Home</a>
+      <a href="#">Buddy Suite</a>
+      <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy</a>
+      <a href="#">Get Started</a>
+      <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Grocery Command</a>
+      <a href="https://symphonious-platypus-081513.netlify.app/news.html" target="_blank">Recipes</a>
+      <a href="#">Blog</a>
+      <a href="#">Store</a>
+      <a href="#">Login</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <img src="tripbuddy-logo.png" alt="Trip Buddy Logo" class="hero-logo" />
+        <h1 class="hero-headline">Trip Buddy Dispatches and Food Buddy Intelligence all in one membership.</h1>
+        <div class="hero-sub">Real-Time Road Trip Intelligence and Food Buying Smarts</div>
+        <p class="hero-desc">Navigate smarter with live updates on gas prices, road conditions, dining options, and a lot more. Shop food stores from home and get a Food Buddy comparative report on basic staples from the stores.</p>
+        <div class="hero-btns">
+          <a href="https://ornate-faun-b042d9.netlify.app" target="_blank" class="btn-green">
+            Enroll in Trip Buddy and Food Buddy →
+          </a>
+          <a href="https://symphonious-platypus-081513.netlify.app" target="_blank" class="btn-outline-green">
+            Food Buddy Recipes
+          </a>
+          <a href="#publications" class="btn-outline-green">
+            Our Publications
+          </a>
+        </div>
+        <div class="hero-note">
+          If you do not have an account please create one after you click on the Start Planning button. Membership and account are required to access the Plan Route feature. If you have questions or problems please use the contact form at the top of the page.
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-app-preview">
+          <div class="preview-icon">🗺️</div>
+          <h3>Trip Buddy is Live</h3>
+          <p>Real-time road intelligence, city reports, gas prices, and dining — all in one app.</p>
+          <a href="https://ornate-faun-b042d9.netlify.app" target="_blank" class="btn-green" style="width:100%;justify-content:center;">
+            Launch App →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <div id="publications">
+    <div class="section">
+      <div class="section-header">
+        <h2>Our Publications</h2>
+        <p>Comprehensive travel intelligence at your fingertips</p>
+      </div>
+      <div class="pub-grid">
+        <div class="pub-card">
+          <div class="pub-icon">⛽</div>
+          <h3>Gas Prices</h3>
+          <p>Find the cheapest fuel stations along your route with real-time pricing updates.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-icon">⚠️</div>
+          <h3>Danger Zones</h3>
+          <p>Stay informed about road hazards, construction zones, weather alerts, and info on crime areas of cities ahead.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-icon">🏨</div>
+          <h3>Places to Stay &amp; Eat</h3>
+          <p>Discover highly-rated hotels, motels, restaurants, and local eateries on your journey.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-icon">🍳</div>
+          <h3>Budget-Friendly Road Recipes</h3>
+          <p>Access quick, affordable meal ideas perfect for travelers on the go.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-icon">🏥</div>
+          <h3>Hospital &amp; Urgent Care</h3>
+          <p>Locate nearby medical facilities and urgent care centers for peace of mind.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-icon">🛒</div>
+          <h3>Grocery Intelligence</h3>
+          <p>Compare grocery prices across stores with Food Buddy and save on every shopping trip.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR SECTION -->
+  <div class="qr-section">
+    <div class="qr-inner">
+      <div class="qr-left">
+        <div style="font-size:2rem;margin-bottom:0.75rem;">📱</div>
+        <h2>Take Trip Buddy on the Road</h2>
+        <p>Scan the QR code to quickly access Trip Buddy Dispatches from your mobile device. Save it for easy access whenever you're planning your next adventure.</p>
+        <div class="qr-btns">
+          <button class="btn-green" onclick="downloadQR()">⬇ Download QR Code</button>
+          <button class="btn-gray" onclick="shareLink()">↗ Share Link</button>
+        </div>
+      </div>
+      <div class="qr-right">
+        <div class="qr-card">
+          <div class="qr-card-title">Scan to visit TripBuddy</div>
+          <div class="qr-card-sub">Open your camera and point it here</div>
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://ornate-faun-b042d9.netlify.app"
+            alt="QR Code for Trip Buddy"
+            class="qr-code-img"
+            id="qr-img"
+          />
+          <div class="qr-domain">tripbuddy.pro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">
+            <div class="footer-brand-icon">📍</div>
+            <div class="footer-brand-name">Trip Buddy Dispatches</div>
+          </div>
+          <p class="footer-tagline">Real-time road trip intelligence for smarter, safer, and more enjoyable journeys.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Legal &amp; Support</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Contact Us</a>
+          <a href="https://tripbuddy.pro">Visit Live Site</a>
+          <a href="#">Store</a>
+          <a href="#">Videos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <div class="social-links">
+            <a href="https://twitter.com" target="_blank" class="social-link" title="Twitter">𝕏</a>
+            <a href="https://instagram.com" target="_blank" class="social-link" title="Instagram">📷</a>
+            <a href="https://facebook.com" target="_blank" class="social-link" title="Facebook">f</a>
+            <a href="https://linkedin.com" target="_blank" class="social-link" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Trip Buddy Dispatches. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Scroll to top">↑</button>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+
+    // Scroll to top button
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scroll-top');
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Download QR Code
+    function downloadQR() {
+      const link = document.createElement('a');
+      link.href = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://ornate-faun-b042d9.netlify.app';
+      link.download = 'tripbuddy-qr-code.png';
+      link.target = '_blank';
+      link.click();
+    }
+
+    // Share Link
+    function shareLink() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Trip Buddy Dispatches',
+          text: 'Real-time road trip intelligence for smarter, safer journeys.',
+          url: 'https://ornate-faun-b042d9.netlify.app'
+        });
+      } else {
+        navigator.clipboard.writeText('https://ornate-faun-b042d9.netlify.app').then(() => {
+          alert('Link copied to clipboard!');
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
