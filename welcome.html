@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Trip Buddy - See What You Get</title>
+  <meta name="description" content="Discover everything Trip Buddy and Food Buddy have to offer. Start your 14-day free trial today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f0fdf4;
+      --white: #ffffff;
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --green-mid: #bbf7d0;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --border: #d1fae5;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; }
+
+    /* ── NAVBAR ─────────────────────────────────────────────────── */
+    nav {
+      background: var(--white); border-bottom: 2px solid var(--green-mid);
+      position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo img { height: 38px; }
+    .nav-logo span { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+    .nav-links { display: flex; gap: 0.5rem; }
+    .nav-links a { padding: 0.4rem 0.9rem; font-size: 0.875rem; font-weight: 600; color: var(--text-muted); text-decoration: none; border-radius: 6px; transition: all 0.15s; }
+    .nav-links a:hover { color: var(--green-dark); background: var(--green-light); }
+    .btn-nav-cta { background: var(--green) !important; color: #fff !important; border-radius: 6px; }
+    .btn-nav-cta:hover { background: var(--green-dark) !important; }
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-bottom: 2px solid var(--green-mid); padding: 4rem 1.5rem 3rem; text-align: center; }
+    .hero-badge { display: inline-block; background: var(--green-light); color: var(--green-dark); border: 1px solid var(--green-mid); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 1rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .hero h1 span { color: var(--green-dark); }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; line-height: 1.7; }
+    .hero-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green); color: #fff; border: none; padding: 0.85rem 2rem; font-size: 1rem; font-weight: 700; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.15s; box-shadow: 0 4px 12px rgba(34,197,94,0.35); }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(34,197,94,0.4); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--green-dark); border: 2px solid var(--green); padding: 0.8rem 1.75rem; font-size: 1rem; font-weight: 700; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .btn-secondary:hover { background: var(--green-light); transform: translateY(-2px); }
+    .hero-note { margin-top: 1.25rem; font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── SECTIONS ───────────────────────────────────────────────── */
+    .section { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-dark); margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: var(--text); margin-bottom: 0.75rem; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.7; }
+    .divider { border: none; border-top: 2px solid var(--green-mid); margin: 0; }
+
+    /* ── VIDEO PLACEHOLDER ──────────────────────────────────────── */
+    .video-section { background: var(--white); border-top: 2px solid var(--green-mid); border-bottom: 2px solid var(--green-mid); }
+    .video-inner { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .video-header { text-align: center; margin-bottom: 2.5rem; }
+    .video-placeholder {
+      background: linear-gradient(135deg, #1a2e1a 0%, #0f1f0f 100%);
+      border-radius: 16px; border: 3px solid var(--green);
+      aspect-ratio: 16/9; max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-lg);
+      position: relative; overflow: hidden;
+    }
+    .video-placeholder:hover { border-color: var(--green-dark); transform: scale(1.01); }
+    .video-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(34,197,94,0.08) 0%, transparent 70%);
+    }
+    .play-btn {
+      width: 80px; height: 80px; background: var(--green); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin-bottom: 1.25rem; box-shadow: 0 0 30px rgba(34,197,94,0.4);
+      position: relative; z-index: 1;
+    }
+    .video-placeholder h3 { color: #fff; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+    .video-placeholder p { color: rgba(255,255,255,0.6); font-size: 0.9rem; position: relative; z-index: 1; }
+    .video-caption { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+    /* ── FEATURE TEXT BLOCK ─────────────────────────────────────── */
+    .feature-text-block {
+      background: var(--white); border: 2px solid var(--green-mid);
+      border-radius: 16px; padding: 2.5rem; margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .feature-text-block h3 { font-size: 1.35rem; font-weight: 800; color: var(--text); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+    .feature-text-block p { font-size: 1rem; color: var(--text-muted); line-height: 1.8; }
+    .feature-text-block ul { margin-top: 1rem; padding-left: 0; list-style: none; }
+    .feature-text-block ul li { font-size: 1rem; color: var(--text-muted); padding: 0.4rem 0; padding-left: 1.75rem; position: relative; line-height: 1.6; }
+    .feature-text-block ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    /* ── IMAGE PLACEHOLDERS ─────────────────────────────────────── */
+    .screenshots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .screenshot-placeholder {
+      background: var(--white); border: 2px dashed var(--green);
+      border-radius: 16px; aspect-ratio: 16/10;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; padding: 2rem; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .screenshot-placeholder:hover { background: var(--green-light); border-style: solid; }
+    .screenshot-placeholder .ph-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .screenshot-placeholder h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .screenshot-placeholder p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+    .screenshot-placeholder input[type="file"] { display: none; }
+    .upload-hint { margin-top: 0.75rem; font-size: 0.75rem; color: var(--green-dark); font-weight: 600; background: var(--green-light); padding: 0.3rem 0.75rem; border-radius: 20px; }
+
+    /* ── PRICING ────────────────────────────────────────────────── */
+    .pricing-section { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-top: 2px solid var(--green-mid); border-bottom: 2px solid var(--green-mid); }
+    .pricing-inner { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .pricing-header { text-align: center; margin-bottom: 3rem; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+    .pricing-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; text-align: center;
+      box-shadow: var(--shadow-md); transition: all 0.2s;
+    }
+    .pricing-card.featured { border-color: var(--green); box-shadow: 0 8px 30px rgba(34,197,94,0.2); }
+    .pricing-badge { display: inline-block; background: var(--green); color: #fff; border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .pricing-card h3 { font-size: 1.25rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+    .pricing-price { font-size: 3rem; font-weight: 800; color: var(--green-dark); line-height: 1; margin: 1rem 0 0.25rem; }
+    .pricing-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .pricing-trial { font-size: 0.875rem; color: var(--green-dark); font-weight: 600; margin-bottom: 1.5rem; background: var(--green-light); padding: 0.4rem 1rem; border-radius: 20px; display: inline-block; }
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+    .pricing-features li { padding: 0.5rem 0; font-size: 0.9rem; color: var(--text-muted); padding-left: 1.75rem; position: relative; border-bottom: 1px solid var(--green-light); }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .pricing-card .btn-primary { width: 100%; justify-content: center; }
+    .pricing-card .btn-secondary { width: 100%; justify-content: center; }
+    .pricing-note { text-align: center; margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── BUSINESS CONTACT ───────────────────────────────────────── */
+    .contact-section { background: var(--white); border-top: 2px solid var(--green-mid); }
+    .contact-inner { max-width: 700px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .contact-header { text-align: center; margin-bottom: 2.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Inter', sans-serif;
+      border: 2px solid var(--border); border-radius: 8px; background: var(--bg);
+      color: var(--text); transition: border-color 0.15s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--green); background: var(--white); }
+    .form-group textarea { min-height: 130px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit { width: 100%; background: var(--green); color: #fff; border: none; padding: 0.9rem; font-size: 1rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+    .btn-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .form-success { display: none; background: var(--green-light); border: 2px solid var(--green); border-radius: 8px; padding: 1.25rem; text-align: center; color: var(--green-dark); font-weight: 600; margin-top: 1rem; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+    footer { background: var(--white); border-top: 2px solid var(--green-mid); padding: 2rem 1.5rem; text-align: center; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a { font-size: 0.875rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--green-dark); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── SCROLL TO TOP ──────────────────────────────────────────── */
+    .scroll-top { position: fixed; bottom: 1.5rem; right: 1.5rem; width: 42px; height: 42px; background: var(--green); color: #fff; border: none; border-radius: 50%; cursor: pointer; font-size: 1.1rem; box-shadow: var(--shadow-md); transition: all 0.2s; opacity: 0; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+    .scroll-top.visible { opacity: 1; pointer-events: auto; }
+    .scroll-top:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .screenshots-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="tripbuddy-logo.png" alt="Trip Buddy Logo" />
+        <span>urtripbuddy.app</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy App</a>
+        <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Food Buddy</a>
+        <a href="#pricing" class="btn-nav-cta">Start Free Trial</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🚀 Now Live — Try Free for 14 Days</div>
+    <h1>Everything You Need for <span>Smarter Road Trips</span> and <span>Smarter Grocery Shopping</span></h1>
+    <p>Trip Buddy gives you real-time intelligence on gas prices, road conditions, city reports, dining, and more. Food Buddy saves you money every time you shop.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">▶ Start Your Free 14-Day Trial</a>
+      <a href="#features" class="btn-secondary">See What's Inside</a>
+    </div>
+    <p class="hero-note">No credit card required to start · Cancel anytime · $19/month after trial</p>
+  </section>
+
+  <!-- VIDEO SECTION -->
+  <div class="video-section">
+    <div class="video-inner">
+      <div class="video-header">
+        <div class="section-label">See It In Action</div>
+        <h2 class="section-title">Watch How Trip Buddy Works</h2>
+        <p class="section-sub">See how business travelers and road warriors use Trip Buddy to navigate smarter and save money on every trip.</p>
+      </div>
+      <!-- VIDEO PLACEHOLDER — Replace src with your YouTube embed URL -->
+      <div class="video-placeholder" id="video-placeholder" onclick="loadVideo()">
+        <div class="play-btn">▶</div>
+        <h3>Trip Buddy — Full Demo Video</h3>
+        <p>Click to play · Add your YouTube video URL in the code</p>
+      </div>
+      <!-- To embed a YouTube video, replace the div above with:
+      <div style="max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);">
+        <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+      </div>
+      -->
+      <p class="video-caption">📹 Add your demo video by replacing the placeholder above with your YouTube embed link</p>
+    </div>
+  </div>
+
+  <!-- FEATURES TEXT SECTION -->
+  <div id="features">
+    <div class="section">
+      <div class="section-label">What You Get</div>
+      <h2 class="section-title">Two Powerful Apps, One Membership</h2>
+      <p class="section-sub" style="margin-bottom:2.5rem;">Trip Buddy and Food Buddy work together to keep your travel costs low and your journeys smooth.</p>
+
+      <div class="feature-text-block">
+        <h3>🗺️ Trip Buddy — Road Intelligence</h3>
+        <p>Trip Buddy is your real-time co-pilot on the road. Before you leave and while you drive, you get live intelligence on everything that matters for a safe, affordable, and enjoyable journey.</p>
+        <ul>
+          <li>Real-time gas prices — find the cheapest fuel stations along your route</li>
+          <li>City Dispatch Reports — crime alerts, weather, road hazards, and danger zones ahead</li>
+          <li>Places to Stay &amp; Eat — top-rated hotels, motels, restaurants, and local favorites</li>
+          <li>Hospital &amp; Urgent Care locator — peace of mind wherever you travel</li>
+          <li>Electric vehicle charging stations along your route</li>
+          <li>Pet-friendly rest areas for travelers with animals</li>
+          <li>Budget-friendly road recipes for meals on the go</li>
+          <li>Downloadable PDF route report — take your intelligence offline</li>
+        </ul>
+      </div>
+
+      <div class="feature-text-block">
+        <h3>🥦 Food Buddy — Grocery Intelligence</h3>
+        <p>Food Buddy tracks grocery prices across the major stores in your area so you always know where to get the best deal. Shop smarter before you ever leave home.</p>
+        <ul>
+          <li>Weekly price comparison across Walmart, WinCo, Fred Meyer, Safeway, and Grocery Outlet</li>
+          <li>Basket total comparison — see which store wins the week</li>
+          <li>Savings calculator — know exactly how much you save vs. the most expensive store</li>
+          <li>Budget recipes using this week's best-priced ingredients</li>
+          <li>Food Buddy News — stay updated on grocery trends and food price alerts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREENSHOTS SECTION -->
+  <div style="background: var(--white); border-top: 2px solid var(--green-mid); border-bottom: 2px solid var(--green-mid);">
+    <div class="section">
+      <div class="section-label">App Screenshots</div>
+      <h2 class="section-title">See the Apps in Action</h2>
+      <p class="section-sub">Real screenshots from Trip Buddy and Food Buddy — click any placeholder to upload your own images.</p>
+
+      <div class="screenshots-grid">
+        <!-- Screenshot 1: Weekly Food Report -->
+        <div class="screenshot-placeholder" onclick="document.getElementById('upload-1').click()">
+          <input type="file" id="upload-1" accept="image/*" onchange="loadImage(event, 'img-1', 'ph-1')" />
+          <div id="ph-1">
+            <div class="ph-icon">🛒</div>
+            <h4>Food Buddy — Weekly Price Report</h4>
+            <p>Screenshot your weekly grocery comparison report and upload it here</p>
+            <div class="upload-hint">📷 Click to upload screenshot</div>
+          </div>
+          <img id="img-1" src="" alt="Food Buddy Screenshot" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+        </div>
+
+        <!-- Screenshot 2: Trip Dispatch -->
+        <div class="screenshot-placeholder" onclick="document.getElementById('upload-2').click()">
+          <input type="file" id="upload-2" accept="image/*" onchange="loadImage(event, 'img-2', 'ph-2')" />
+          <div id="ph-2">
+            <div class="ph-icon">🗺️</div>
+            <h4>Trip Buddy — City Dispatch Report</h4>
+            <p>Screenshot a Trip Buddy city dispatch and upload it here</p>
+            <div class="upload-hint">📷 Click to upload screenshot</div>
+          </div>
+          <img id="img-2" src="" alt="Trip Buddy Screenshot" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+        </div>
+
+        <!-- Screenshot 3: Gas Prices -->
+        <div class="screenshot-placeholder" onclick="document.getElementById('upload-3').click()">
+          <input type="file" id="upload-3" accept="image/*" onchange="loadImage(event, 'img-3', 'ph-3')" />
+          <div id="ph-3">
+            <div class="ph-icon">⛽</div>
+            <h4>Trip Buddy — Gas Price Finder</h4>
+            <p>Upload a screenshot of the gas price comparison feature</p>
+            <div class="upload-hint">📷 Click to upload screenshot</div>
+          </div>
+          <img id="img-3" src="" alt="Gas Prices Screenshot" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+        </div>
+
+        <!-- Screenshot 4: Food Buddy Recipes -->
+        <div class="screenshot-placeholder" onclick="document.getElementById('upload-4').click()">
+          <input type="file" id="upload-4" accept="image/*" onchange="loadImage(event, 'img-4', 'ph-4')" />
+          <div id="ph-4">
+            <div class="ph-icon">🍳</div>
+            <h4>Food Buddy — Budget Recipes</h4>
+            <p>Upload a screenshot of the Food Buddy recipe section</p>
+            <div class="upload-hint">📷 Click to upload screenshot</div>
+          </div>
+          <img id="img-4" src="" alt="Recipes Screenshot" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:1rem;font-size:0.82rem;color:var(--text-muted);font-style:italic;">💡 These image placeholders are for preview only. To make screenshots permanent, send them to me and I'll embed them directly in the page code.</p>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <div class="pricing-header">
+        <div class="section-label">Simple Pricing</div>
+        <h2 class="section-title">Start Free, Stay Because It Works</h2>
+        <p class="section-sub">No contracts. No hidden fees. Cancel anytime. Your first 14 days are completely free.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <!-- Individual Plan -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <h3>Individual Membership</h3>
+          <div class="pricing-price">$19<span>/month</span></div>
+          <div class="pricing-trial">✓ 14-Day Free Trial Included</div>
+          <ul class="pricing-features">
+            <li>Full Trip Buddy access</li>
+            <li>Full Food Buddy access</li>
+            <li>Real-time gas price alerts</li>
+            <li>City Dispatch Reports</li>
+            <li>Weekly grocery comparisons</li>
+            <li>Budget recipe library</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <!-- STRIPE PAYMENT LINK — Replace # with your Stripe Payment Link URL -->
+          <a href="#" class="btn-primary" id="stripe-btn">
+            ▶ Start Free Trial
+          </a>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.75rem;">No credit card required to start</p>
+        </div>
+
+        <!-- Business Plan -->
+        <div class="pricing-card">
+          <div class="pricing-badge" style="background:var(--text);">Business &amp; Teams</div>
+          <h3>Team Licensing</h3>
+          <div class="pricing-price" style="font-size:2rem;margin-top:1.25rem;">Custom<span> pricing</span></div>
+          <div class="pricing-trial" style="background:#f3f4f6;color:var(--text-muted);">Volume discounts available</div>
+          <ul class="pricing-features">
+            <li>Everything in Individual</li>
+            <li>Multiple team members</li>
+            <li>Centralized billing</li>
+            <li>Priority support</li>
+            <li>Custom onboarding</li>
+            <li>Usage reporting</li>
+            <li>Flexible contract terms</li>
+          </ul>
+          <a href="#business-contact" class="btn-secondary">Contact Us for Pricing</a>
+        </div>
+
+      </div>
+      <p class="pricing-note">🔒 Payments secured by Stripe · SSL encrypted · Cancel anytime from your account</p>
+    </div>
+  </div>
+
+  <!-- BUSINESS CONTACT FORM -->
+  <div class="contact-section" id="business-contact">
+    <div class="contact-inner">
+      <div class="contact-header">
+        <div class="section-label">Business &amp; Teams</div>
+        <h2 class="section-title">Get Team Pricing</h2>
+        <p class="section-sub">Running a fleet, sales team, or field crew? We offer volume pricing for businesses. Tell us about your team and we'll get back to you within 24 hours.</p>
+      </div>
+      <form id="contact-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="fname" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="lname" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Business Email *</label>
+          <input type="email" id="email" name="email" placeholder="john@company.com" required />
+        </div>
+        <div class="form-group">
+          <label for="company">Company Name *</label>
+          <input type="text" id="company" name="company" placeholder="Acme Corp" required />
+        </div>
+        <div class="form-group">
+          <label for="team-size">Estimated Team Size *</label>
+          <select id="team-size" name="team-size" required>
+            <option value="">Select team size...</option>
+            <option value="2-5">2–5 members</option>
+            <option value="6-15">6–15 members</option>
+            <option value="16-50">16–50 members</option>
+            <option value="51-100">51–100 members</option>
+            <option value="100+">100+ members</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your team's needs</label>
+          <textarea id="message" name="message" placeholder="Describe how your team would use Trip Buddy and Food Buddy..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Inquiry → tripbuddy@tripbuddy.pro</button>
+        <div class="form-success" id="form-success">
+          ✓ Thank you! We'll be in touch within 24 hours at <strong id="reply-email"></strong>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy App</a>
+      <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Food Buddy App</a>
+      <a href="mailto:tripbuddy@tripbuddy.pro">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    <p class="footer-copy">© 2026 urtripbuddy.app · All rights reserved · <a href="mailto:tripbuddy@tripbuddy.pro" style="color:var(--green-dark);text-decoration:none;">tripbuddy@tripbuddy.pro</a></p>
+  </footer>
+
+  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    // Scroll to top
+    window.addEventListener('scroll', () => {
+      document.getElementById('scroll-top').classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Image upload preview
+    function loadImage(event, imgId, phId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById(imgId);
+        const ph = document.getElementById(phId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+        ph.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Video placeholder click
+    function loadVideo() {
+      // Replace YOUR_VIDEO_ID with your actual YouTube video ID
+      // Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ → ID is dQw4w9WgXcQ
+      const videoId = 'YOUR_VIDEO_ID';
+      if (videoId === 'YOUR_VIDEO_ID') {
+        alert('Add your YouTube video ID to the welcome.html code to enable video playback.');
+        return;
+      }
+      const placeholder = document.getElementById('video-placeholder');
+      placeholder.outerHTML = `
+        <div style="max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);">
+          <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+        </div>`;
+    }
+
+    // Contact form submission (mailto fallback)
+    function submitForm(e) {
+      e.preventDefault();
+      const fname = document.getElementById('fname').value;
+      const lname = document.getElementById('lname').value;
+      const email = document.getElementById('email').value;
+      const company = document.getElementById('company').value;
+      const teamSize = document.getElementById('team-size').value;
+      const message = document.getElementById('message').value;
+
+      const subject = encodeURIComponent(`Team Licensing Inquiry — ${company}`);
+      const body = encodeURIComponent(
+        `Name: ${fname} ${lname}\nEmail: ${email}\nCompany: ${company}\nTeam Size: ${teamSize}\n\nMessage:\n${message}`
+      );
+      window.location.href = `mailto:tripbuddy@tripbuddy.pro?subject=${subject}&body=${body}`;
+
+      document.getElementById('reply-email').textContent = email;
+      document.getElementById('form-success').style.display = 'block';
+      document.getElementById('contact-form').reset();
+    }
+  </script>
+
+</body>
+</html>
