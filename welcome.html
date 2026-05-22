@@ -231,7 +231,27 @@
         <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
       </div>
       -->
-      <p class="video-caption">📹 Add your demo video by replacing the placeholder above with your YouTube embed link</p>
+      <p class="video-caption">📹 Add your Trip Buddy demo video by replacing the placeholder above with your YouTube embed link</p>
+
+      <!-- FOOD BUDDY VIDEO -->
+      <div style="margin-top:3rem;">
+        <div class="video-header">
+          <div class="section-label">Food Buddy Demo</div>
+          <h2 class="section-title">Watch How Food Buddy Saves You Money</h2>
+          <p class="section-sub">See how Food Buddy compares grocery prices across stores so you always shop at the best price.</p>
+        </div>
+        <div class="video-placeholder" id="video-placeholder-2" onclick="loadVideo2()">
+          <div class="play-btn">▶</div>
+          <h3>Food Buddy — Full Demo Video</h3>
+          <p>Click to play · Add your YouTube video URL in the code</p>
+        </div>
+        <!-- To embed a YouTube video, replace the div above with:
+        <div style="max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);">
+          <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/YOUR_FOOD_BUDDY_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+        </div>
+        -->
+        <p class="video-caption">📹 Add your Food Buddy demo video by replacing the placeholder above with your YouTube embed link</p>
+      </div>
     </div>
   </div>
 
@@ -472,7 +492,7 @@
       reader.readAsDataURL(file);
     }
 
-    // Video placeholder click
+    // Video placeholder click — Trip Buddy
     function loadVideo() {
       // Replace YOUR_VIDEO_ID with your actual YouTube video ID
       // Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ → ID is dQw4w9WgXcQ
@@ -482,6 +502,21 @@
         return;
       }
       const placeholder = document.getElementById('video-placeholder');
+      placeholder.outerHTML = `
+        <div style="max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);">
+          <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+        </div>`;
+    }
+
+    // Video placeholder click — Food Buddy
+    function loadVideo2() {
+      // Replace YOUR_FOOD_BUDDY_VIDEO_ID with your actual YouTube video ID
+      const videoId = 'YOUR_FOOD_BUDDY_VIDEO_ID';
+      if (videoId === 'YOUR_FOOD_BUDDY_VIDEO_ID') {
+        alert('Add your Food Buddy YouTube video ID to the welcome.html code to enable video playback.');
+        return;
+      }
+      const placeholder = document.getElementById('video-placeholder-2');
       placeholder.outerHTML = `
         <div style="max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);">
           <iframe width="100%" style="aspect-ratio:16/9;display:block;" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay"></iframe>
