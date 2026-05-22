@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip Buddy Store | urtripbuddy.app</title>
+  <meta name="description" content="Get your Trip Buddy membership, free road trip resources, and premium travel guides." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --green-pale: #f0fdf4;
+      --slate: #1e293b;
+      --slate-mid: #334155;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav { background: var(--white); border-bottom: 2px solid var(--green-light); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo img { height: 36px; }
+    .nav-logo span { font-size: 1.2rem; font-weight: 800; color: var(--slate); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--green-dark); }
+    .nav-cta { background: var(--green); color: white; padding: 0.5rem 1.2rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--green-dark); color: white; }
+
+    /* HERO */
+    .store-hero { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 4rem 2rem 3rem; text-align: center; border-bottom: 2px solid var(--border); }
+    .store-hero h1 { font-size: 2.8rem; font-weight: 800; color: var(--slate); margin-bottom: 0.75rem; }
+    .store-hero h1 span { color: var(--green-dark); }
+    .store-hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+    /* SECTIONS */
+    .store-section { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 2.5rem; }
+    .section-label { display: inline-block; background: var(--green-light); color: var(--green-dark); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 0.75rem; }
+    .section-header h2 { font-size: 2rem; font-weight: 800; color: var(--slate); margin-bottom: 0.5rem; }
+    .section-header p { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .section-divider { border: none; border-top: 2px solid var(--border); margin: 1rem 0 3rem; }
+
+    /* MEMBERSHIP CARDS */
+    .membership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .membership-card { background: var(--white); border-radius: var(--radius); padding: 2.5rem; box-shadow: var(--shadow); border: 2px solid var(--border); position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+    .membership-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .membership-card.featured { border-color: var(--green); }
+    .badge-featured { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 1.2rem; border-radius: 999px; white-space: nowrap; }
+    .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .card-title { font-size: 1.4rem; font-weight: 800; color: var(--slate); margin-bottom: 0.25rem; }
+    .card-price { font-size: 2.2rem; font-weight: 800; color: var(--green-dark); margin: 0.75rem 0 0.25rem; }
+    .card-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .card-trial { font-size: 0.85rem; color: var(--green-dark); font-weight: 600; background: var(--green-light); padding: 0.3rem 0.8rem; border-radius: 999px; display: inline-block; margin-bottom: 1rem; }
+    .card-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
+    .card-features { list-style: none; margin-bottom: 2rem; }
+    .card-features li { padding: 0.4rem 0; font-size: 0.95rem; color: var(--text); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .card-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+    .btn-primary { display: block; width: 100%; text-align: center; background: var(--green); color: white; padding: 0.9rem 1.5rem; border-radius: 10px; font-weight: 700; font-size: 1rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-outline { display: block; width: 100%; text-align: center; background: transparent; color: var(--green-dark); padding: 0.9rem 1.5rem; border-radius: 10px; font-weight: 700; font-size: 1rem; text-decoration: none; border: 2px solid var(--green); cursor: pointer; transition: all 0.2s; }
+    .btn-outline:hover { background: var(--green-light); transform: translateY(-1px); }
+
+    /* FREE DOWNLOADS */
+    .downloads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .download-card { background: var(--white); border-radius: var(--radius); padding: 1.75rem; box-shadow: var(--shadow); border: 2px solid var(--border); display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+    .download-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .download-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .download-title { font-size: 1.05rem; font-weight: 700; color: var(--slate); margin-bottom: 0.4rem; }
+    .download-desc { font-size: 0.9rem; color: var(--text-muted); flex: 1; margin-bottom: 1.25rem; line-height: 1.6; }
+    .download-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .btn-download { display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: var(--green-light); color: var(--green-dark); padding: 0.65rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-download:hover { background: var(--green); color: white; }
+    .badge-free { display: inline-block; background: var(--green); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; margin-left: 0.5rem; vertical-align: middle; }
+    .badge-paid { display: inline-block; background: var(--slate); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; margin-left: 0.5rem; vertical-align: middle; }
+
+    /* MERCH */
+    .merch-coming { background: var(--white); border-radius: var(--radius); padding: 3rem; text-align: center; border: 2px dashed var(--border); box-shadow: var(--shadow); }
+    .merch-coming h3 { font-size: 1.5rem; font-weight: 800; color: var(--slate); margin-bottom: 0.75rem; }
+    .merch-coming p { color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem; }
+    .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+    .merch-placeholder { background: var(--green-pale); border: 2px dashed var(--green-light); border-radius: 12px; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .merch-placeholder .merch-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+
+    /* FOOTER */
+    footer { background: var(--slate); color: #94a3b8; text-align: center; padding: 2rem; font-size: 0.9rem; margin-top: 2rem; }
+    footer a { color: var(--green); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .store-hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .membership-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="tripbuddy-logo.png" alt="Trip Buddy" onerror="this.style.display='none'" />
+    <span>Trip Buddy</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="welcome.html">About</a>
+    <a href="store.html" class="active">Store</a>
+    <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy App</a>
+    <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Food Buddy</a>
+    <a href="#memberships" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<div class="store-hero">
+  <h1>The Trip Buddy <span>Store</span></h1>
+  <p>Memberships, free road trip resources, premium guides, and gear — everything you need for smarter travel.</p>
+</div>
+
+<script>
+/* ============================================================
+   ✏️  EASY EDIT ZONE — CHANGE YOUR PRODUCTS HERE
+   ============================================================
+
+   HOW TO EDIT:
+   - To change a price: find the price and type the new number
+   - To change a description: find the text and retype it
+   - To add a Stripe payment link: replace the # in href="#" with your Stripe link
+   - To add a free PDF: replace the # in href="#" with the direct link to your PDF file
+   - To add a paid PDF: replace the # in href="#" with your Stripe payment link
+   - Save the file in GitHub → Netlify auto-deploys in 60 seconds
+
+   ============================================================ */
+
+  // ── MEMBERSHIPS ──────────────────────────────────────────────
+  const MEMBERSHIPS = [
+    {
+      featured: true,
+      icon: "🗺️",
+      title: "Individual Membership",
+      price: "$19",
+      period: "/month",
+      trial: "14-Day Free Trial",
+      desc: "Full access to Trip Buddy and Food Buddy Intelligence. Cancel anytime.",
+      features: [
+        "Trip Buddy — Real-time gas prices, city reports, EV charging",
+        "Food Buddy — Weekly grocery price comparisons",
+        "Route planning with PDF export",
+        "Pet rest areas & urgent care locator",
+        "Budget recipe library",
+        "Priority support"
+      ],
+      btnText: "Start Free Trial",
+      btnLink: "#",   // ← REPLACE # WITH YOUR STRIPE PAYMENT LINK
+      btnStyle: "primary"
+    },
+    {
+      featured: false,
+      icon: "🏢",
+      title: "Business / Team Plan",
+      price: "Custom",
+      period: "",
+      trial: "",
+      desc: "Volume pricing for corporate teams, field reps, and fleet managers. Contact us for a custom quote based on your team size.",
+      features: [
+        "Everything in Individual",
+        "Team dashboard & reporting",
+        "Bulk user management",
+        "Dedicated account manager",
+        "Custom onboarding",
+        "Invoice billing available"
+      ],
+      btnText: "Contact Us for Pricing",
+      btnLink: "mailto:tripbuddy@tripbuddy.pro?subject=Business Team Plan Inquiry",
+      btnStyle: "outline"
+    }
+  ];
+
+  // ── FREE PDF DOWNLOADS ────────────────────────────────────────
+  const FREE_DOWNLOADS = [
+    {
+      icon: "📋",
+      title: "Road Trip Packing Checklist",
+      desc: "The ultimate pre-trip checklist for business travelers — never forget an essential again.",
+      fileType: "PDF · 1 page",
+      link: "#"   // ← REPLACE # WITH YOUR PDF FILE LINK
+    },
+    {
+      icon: "💰",
+      title: "Business Expense Tracker",
+      desc: "A simple printable log for tracking mileage, meals, lodging, and fuel on the road.",
+      fileType: "PDF · 2 pages",
+      link: "#"   // ← REPLACE # WITH YOUR PDF FILE LINK
+    },
+    {
+      icon: "⛽",
+      title: "Fuel Savings Calculator",
+      desc: "Compare fuel costs across different routes and vehicle types before you leave.",
+      fileType: "PDF · 1 page",
+      link: "#"   // ← REPLACE # WITH YOUR PDF FILE LINK
+    },
+    {
+      icon: "🗺️",
+      title: "Trip Planning Worksheet",
+      desc: "Plan your entire trip on one page — stops, budget, contacts, and emergency info.",
+      fileType: "PDF · 2 pages",
+      link: "#"   // ← REPLACE # WITH YOUR PDF FILE LINK
+    }
+  ];
+
+  // ── PAID PDF DOWNLOADS ────────────────────────────────────────
+  const PAID_DOWNLOADS = [
+    {
+      icon: "📊",
+      title: "Annual Business Travel Tax Guide",
+      desc: "Everything you need to know about deducting business travel expenses. Written for the 2026 tax year.",
+      fileType: "PDF · 24 pages",
+      price: "$9.99",
+      link: "#"   // ← REPLACE # WITH YOUR STRIPE PAYMENT LINK
+    },
+    {
+      icon: "🏨",
+      title: "Road Warrior Lodging Guide",
+      desc: "Insider tips for finding the best rates on hotels, extended stays, and corporate housing.",
+      fileType: "PDF · 18 pages",
+      price: "$7.99",
+      link: "#"   // ← REPLACE # WITH YOUR STRIPE PAYMENT LINK
+    },
+    {
+      icon: "🍽️",
+      title: "Budget Meal Prep for Road Trips",
+      desc: "50 easy recipes and a weekly meal plan designed for travelers who want to eat well and spend less.",
+      fileType: "PDF · 32 pages",
+      price: "$6.99",
+      link: "#"   // ← REPLACE # WITH YOUR STRIPE PAYMENT LINK
+    },
+    {
+      icon: "⚡",
+      title: "EV Road Trip Planner",
+      desc: "Complete guide to planning long-distance electric vehicle trips — charging networks, range tips, and cost calculators.",
+      fileType: "PDF · 20 pages",
+      price: "$8.99",
+      link: "#"   // ← REPLACE # WITH YOUR STRIPE PAYMENT LINK
+    }
+  ];
+
+  // ── MERCHANDISE (COMING SOON) ─────────────────────────────────
+  const MERCH_ITEMS = [
+    { emoji: "👕", label: "Trip Buddy T-Shirt" },
+    { emoji: "🧢", label: "Road Warrior Cap" },
+    { emoji: "🎒", label: "Travel Backpack" },
+    { emoji: "☕", label: "Travel Mug" },
+    { emoji: "📱", label: "Phone Case" },
+    { emoji: "🖊️", label: "Branded Pen Set" }
+  ];
+
+/* ============================================================
+   END EASY EDIT ZONE — Do not edit below unless you know HTML
+   ============================================================ */
+
+  // Render Memberships
+  document.addEventListener('DOMContentLoaded', function() {
+    const memGrid = document.getElementById('membership-grid');
+    MEMBERSHIPS.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'membership-card' + (m.featured ? ' featured' : '');
+      card.innerHTML = `
+        ${m.featured ? '<div class="badge-featured">⭐ Most Popular</div>' : ''}
+        <div class="card-icon">${m.icon}</div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-price">${m.price}<span>${m.period}</span></div>
+        ${m.trial ? `<div class="card-trial">✓ ${m.trial} — No credit card required</div>` : ''}
+        <div class="card-desc">${m.desc}</div>
+        <ul class="card-features">${m.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        <a href="${m.btnLink}" class="btn-${m.btnStyle}" ${m.btnLink.startsWith('mailto') ? '' : 'target="_blank"'}>${m.btnText}</a>
+      `;
+      memGrid.appendChild(card);
+    });
+
+    // Render Free Downloads
+    const freeGrid = document.getElementById('free-downloads-grid');
+    FREE_DOWNLOADS.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'download-card';
+      card.innerHTML = `
+        <div class="download-icon">${d.icon}</div>
+        <div class="download-title">${d.title} <span class="badge-free">FREE</span></div>
+        <div class="download-desc">${d.desc}</div>
+        <div class="download-meta">${d.fileType}</div>
+        <a href="${d.link}" class="btn-download" ${d.link !== '#' ? 'download target="_blank"' : 'onclick="alert(\'PDF coming soon! Check back shortly.\')"'}>
+          ⬇ Download Free
+        </a>
+      `;
+      freeGrid.appendChild(card);
+    });
+
+    // Render Paid Downloads
+    const paidGrid = document.getElementById('paid-downloads-grid');
+    PAID_DOWNLOADS.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'download-card';
+      card.innerHTML = `
+        <div class="download-icon">${d.icon}</div>
+        <div class="download-title">${d.title} <span class="badge-paid">${d.price}</span></div>
+        <div class="download-desc">${d.desc}</div>
+        <div class="download-meta">${d.fileType}</div>
+        <a href="${d.link}" class="btn-download" ${d.link !== '#' ? 'target="_blank"' : 'onclick="alert(\'Payment coming soon! Stripe setup in progress.\')"'}>
+          🛒 Buy Now — ${d.price}
+        </a>
+      `;
+      paidGrid.appendChild(card);
+    });
+
+    // Render Merch
+    const merchGrid = document.getElementById('merch-grid');
+    MERCH_ITEMS.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'merch-placeholder';
+      div.innerHTML = `<span class="merch-emoji">${item.emoji}</span>${item.label}`;
+      merchGrid.appendChild(div);
+    });
+  });
+</script>
+
+<!-- ============================================================
+     MEMBERSHIPS SECTION
+============================================================ -->
+<div class="store-section" id="memberships">
+  <div class="section-header">
+    <div class="section-label">Memberships</div>
+    <h2>Choose Your Plan</h2>
+    <p>Start free for 14 days. Cancel anytime. No contracts.</p>
+  </div>
+  <div class="membership-grid" id="membership-grid"></div>
+</div>
+
+<hr class="section-divider" style="max-width:1100px;margin:0 auto 0;" />
+
+<!-- ============================================================
+     FREE DOWNLOADS SECTION
+============================================================ -->
+<div class="store-section" id="free-downloads">
+  <div class="section-header">
+    <div class="section-label">Free Resources</div>
+    <h2>Free Downloads</h2>
+    <p>Helpful road trip tools — yours at no cost. No signup required.</p>
+  </div>
+  <div class="downloads-grid" id="free-downloads-grid"></div>
+</div>
+
+<hr class="section-divider" style="max-width:1100px;margin:0 auto 0;" />
+
+<!-- ============================================================
+     PAID DOWNLOADS SECTION
+============================================================ -->
+<div class="store-section" id="paid-downloads">
+  <div class="section-header">
+    <div class="section-label">Premium Guides</div>
+    <h2>Paid Downloads</h2>
+    <p>In-depth guides for serious road warriors and business travelers.</p>
+  </div>
+  <div class="downloads-grid" id="paid-downloads-grid"></div>
+</div>
+
+<hr class="section-divider" style="max-width:1100px;margin:0 auto 0;" />
+
+<!-- ============================================================
+     MERCHANDISE SECTION
+============================================================ -->
+<div class="store-section" id="merch">
+  <div class="section-header">
+    <div class="section-label">Merchandise</div>
+    <h2>Trip Buddy Gear</h2>
+    <p>Branded merchandise for road warriors. Coming soon!</p>
+  </div>
+  <div class="merch-coming">
+    <h3>🚧 Merchandise Coming Soon</h3>
+    <p>We're working on some great Trip Buddy branded gear. Sign up for a membership to be notified when the store opens.</p>
+    <a href="#memberships" class="btn-primary" style="display:inline-block;width:auto;padding:0.75rem 2rem;">Get Notified — Join Now</a>
+    <div class="merch-grid" id="merch-grid"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <p style="margin-bottom:0.5rem;">
+    <a href="index.html">Home</a> &nbsp;·&nbsp;
+    <a href="welcome.html">About</a> &nbsp;·&nbsp;
+    <a href="store.html">Store</a> &nbsp;·&nbsp;
+    <a href="https://ornate-faun-b042d9.netlify.app" target="_blank">Trip Buddy App</a> &nbsp;·&nbsp;
+    <a href="https://symphonious-platypus-081513.netlify.app" target="_blank">Food Buddy</a> &nbsp;·&nbsp;
+    <a href="mailto:tripbuddy@tripbuddy.pro">Contact</a>
+  </p>
+  <p style="margin-top:0.5rem;">© 2026 Trip Buddy · <a href="mailto:tripbuddy@tripbuddy.pro">tripbuddy@tripbuddy.pro</a> · All rights reserved.</p>
+</footer>
+
+</body>
+</html>
